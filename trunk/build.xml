@@ -1,0 +1,45 @@
+<project default="dist">
+  
+  <uptodate property="have_jar" targetfile="purecollections.jar">
+    <srcfiles dir="src"/>
+  </uptodate>
+  
+  <uptodate property="have_javadoc" targetfile="docs">
+    <srcfiles dir="src"/>
+  </uptodate>
+  
+  <mkdir dir="bin"/>
+  
+  <target name="jar" unless="have_jar">
+    <javac srcdir="src" destdir="bin" includeAntRuntime="false" debug="yes"/>
+    <jar destfile="purecollections.jar">
+      <fileset dir="bin"/>
+    </jar>
+  </target>
+  
+  <target name="javadoc" unless="have_javadoc">
+    <delete dir="docs"/>
+    <javadoc sourcepath="src" destdir="docs" windowtitle="purecollections API">
+      <link href="http://download.oracle.com/javase/7/docs/api/"/>
+    </javadoc>
+  </target>
+  
+  <target name="test">
+    <ant antfile="test.xml"/>
+  </target>
+  
+  <target name="dist" depends="jar,test,javadoc">
+    <zip destfile="purecollections.zip">
+      <fileset dir="." includes="purecollections.jar,License.txt,docs/**,test/**,test.xml"/>
+    </zip>
+  </target>
+  
+  <target name="clean">
+    <delete dir="bin"/>
+    <delete dir="docs"/>
+    <delete file="purecollections.jar"/>
+    <delete file="purecollections.zip"/>
+    <ant antfile="test.xml" target="clean"/>
+  </target>
+  
+</project>
