@@ -1,0 +1,7 @@
+pcollections-simple TODOs
+=========================
+
+- Comments describing the internal operation: protect the code against future tweakers
+- (Get full test coverage by testing the failure paths)
+
+(- Verify?)
