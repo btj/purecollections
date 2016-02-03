@@ -1,142 +1,141 @@
----
-highlighter: pygments
----
-<!DOCTYPE html>
-<html lang="en-us">
+<!doctype html>
+<html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>purecollections by btj</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/syntax.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
   <body>
-    <section class="page-header">
-      <h1 class="project-name">purecollections</h1>
-      <h2 class="project-tagline">Purely functional data structures for Java</h2>
-      <a href="https://rawgit.com/btj/purecollections/master/docs/index.html" class="btn">View Javadoc</a>
-      <a href="https://github.com/btj/purecollections/releases/download/v1.0/purecollections-1.0.zip" class="btn">Download Latest Release</a>
-      <a href="https://github.com/btj/purecollections" class="btn">View on GitHub</a>
-    </section>
+    <div class="wrapper">
+      <header>
+        <h1>purecollections</h1>
+        <p>Purely functional data structures for Java</p>
 
-    <section class="main-content">
-      <p>Java's standard collection classes in the java.util package are mutable. As a result, passing instances of these classes between modules requires special care, such as making copies or wrapping them in unmodifiable wrappers, to avoid inadvertent modifications of a module's internal state representation by other modules, a problem known as <strong>representation exposure</strong>.</p>
+        <p class="view"><a href="https://github.com/btj/purecollections">View the Project on GitHub <small>btj/purecollections</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/btj/purecollections/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/btj/purecollections/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/btj/purecollections">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p>Java's standard collection classes in the java.util package are mutable. As a result, passing instances of these classes between modules requires special care, such as making copies or wrapping them in unmodifiable wrappers, to avoid inadvertent modifications of a module's internal state representation by other modules, a problem known as <strong>representation exposure</strong>.</p>
 
 <p>For example, consider a Person class that maintains a map of children and a list of telephone numbers. We show two variants of each getter: one which returns an unmodifiable wrapper, and one which creates a copy. Note that the public constructor that accepts initial values for the children and the phone numbers needs to defensively create a copy of the incoming collections.</p>
 
-{% highlight java %}
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+<div class="highlight highlight-source-java"><pre><span class="pl-k">import</span> <span class="pl-smi">java.util.ArrayList</span>;
+<span class="pl-k">import</span> <span class="pl-smi">java.util.Collections</span>;
+<span class="pl-k">import</span> <span class="pl-smi">java.util.HashMap</span>;
+<span class="pl-k">import</span> <span class="pl-smi">java.util.List</span>;
+<span class="pl-k">import</span> <span class="pl-smi">java.util.Map</span>;
 
-class Person {
-    
-    private final Map<String, Person> children;
-    private final Map<String, Person> childrenUnmodifiableWrapper;
-    private final List<String> phoneNumbers;
-    private final List<String> phoneNumbersUnmodifiableWrapper;
-    
-    private Person(Map<String, Person> children, List<String> phoneNumbers, boolean dummy) {
-    	this.children = children;
-    	this.childrenUnmodifiableWrapper = Collections.unmodifiableMap(this.children);
-    	this.phoneNumbers = phoneNumbers;
-    	this.phoneNumbersUnmodifiableWrapper = Collections.unmodifiableList(this.phoneNumbers);
+<span class="pl-k">class</span> <span class="pl-en">Person</span> {
+
+    <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-k">Map&lt;<span class="pl-smi">String</span>, <span class="pl-smi">Person</span>&gt;</span> children;
+    <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-k">Map&lt;<span class="pl-smi">String</span>, <span class="pl-smi">Person</span>&gt;</span> childrenUnmodifiableWrapper;
+    <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-k">List&lt;<span class="pl-smi">String</span>&gt;</span> phoneNumbers;
+    <span class="pl-k">private</span> <span class="pl-k">final</span> <span class="pl-k">List&lt;<span class="pl-smi">String</span>&gt;</span> phoneNumbersUnmodifiableWrapper;
+
+    <span class="pl-k">private</span> <span class="pl-en">Person</span>(<span class="pl-k">Map&lt;<span class="pl-smi">String</span>, <span class="pl-smi">Person</span>&gt;</span> <span class="pl-v">children</span>, <span class="pl-k">List&lt;<span class="pl-smi">String</span>&gt;</span> <span class="pl-v">phoneNumbers</span>, <span class="pl-k">boolean</span> <span class="pl-v">dummy</span>) {
+        <span class="pl-v">this</span><span class="pl-k">.</span>children <span class="pl-k">=</span> children;
+        <span class="pl-v">this</span><span class="pl-k">.</span>childrenUnmodifiableWrapper <span class="pl-k">=</span> <span class="pl-smi">Collections</span><span class="pl-k">.</span>unmodifiableMap(<span class="pl-v">this</span><span class="pl-k">.</span>children);
+        <span class="pl-v">this</span><span class="pl-k">.</span>phoneNumbers <span class="pl-k">=</span> phoneNumbers;
+        <span class="pl-v">this</span><span class="pl-k">.</span>phoneNumbersUnmodifiableWrapper <span class="pl-k">=</span> <span class="pl-smi">Collections</span><span class="pl-k">.</span>unmodifiableList(<span class="pl-v">this</span><span class="pl-k">.</span>phoneNumbers);
     }
-    
-    public Person(Map<String, Person> children, List<String> phoneNumbers) {
-    	// Create defensive copies
-    	this(new HashMap<String, Person>(children), new ArrayList<String>(phoneNumbers), false);
+
+    <span class="pl-k">public</span> <span class="pl-en">Person</span>(<span class="pl-k">Map&lt;<span class="pl-smi">String</span>, <span class="pl-smi">Person</span>&gt;</span> <span class="pl-v">children</span>, <span class="pl-k">List&lt;<span class="pl-smi">String</span>&gt;</span> <span class="pl-v">phoneNumbers</span>) {
+        <span class="pl-c">// Create defensive copies</span>
+        <span class="pl-v">this</span>(<span class="pl-k">new</span> <span class="pl-k">HashMap&lt;<span class="pl-smi">String</span>, <span class="pl-smi">Person</span>&gt;</span>(children), <span class="pl-k">new</span> <span class="pl-k">ArrayList&lt;<span class="pl-smi">String</span>&gt;</span>(phoneNumbers), <span class="pl-c1">false</span>);
     }
-    
-    public Person() {
-    	this(new HashMap<String, Person>(), new ArrayList<String>(), false);
+
+    <span class="pl-k">public</span> <span class="pl-en">Person</span>() {
+        <span class="pl-v">this</span>(<span class="pl-k">new</span> <span class="pl-k">HashMap&lt;<span class="pl-smi">String</span>, <span class="pl-smi">Person</span>&gt;</span>(), <span class="pl-k">new</span> <span class="pl-k">ArrayList&lt;<span class="pl-smi">String</span>&gt;</span>(), <span class="pl-c1">false</span>);
     }
-        
-    public Map<String, Person> getChildren1() {
-        return childrenUnmodifiableWrapper;
+
+    <span class="pl-k">public</span> <span class="pl-k">Map&lt;<span class="pl-smi">String</span>, <span class="pl-smi">Person</span>&gt;</span> <span class="pl-en">getChildren1</span>() {
+        <span class="pl-k">return</span> childrenUnmodifiableWrapper;
     }
-    
-    public Map<String, Person> getChildren2() {
-        return new HashMap<String, Person>(children);
+
+    <span class="pl-k">public</span> <span class="pl-k">Map&lt;<span class="pl-smi">String</span>, <span class="pl-smi">Person</span>&gt;</span> <span class="pl-en">getChildren2</span>() {
+        <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-k">HashMap&lt;<span class="pl-smi">String</span>, <span class="pl-smi">Person</span>&gt;</span>(children);
     }
-    
-    public Person addChild(String name) {
-        Person child = new Person();
-        children.put(name, child);
-        return child;
+
+    <span class="pl-k">public</span> <span class="pl-smi">Person</span> <span class="pl-en">addChild</span>(<span class="pl-smi">String</span> <span class="pl-v">name</span>) {
+        <span class="pl-smi">Person</span> child <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Person</span>();
+        children<span class="pl-k">.</span>put(name, child);
+        <span class="pl-k">return</span> child;
     }
-    
-    public List<String> getPhoneNumbers1() {
-        return phoneNumbersUnmodifiableWrapper;
+
+    <span class="pl-k">public</span> <span class="pl-k">List&lt;<span class="pl-smi">String</span>&gt;</span> <span class="pl-en">getPhoneNumbers1</span>() {
+        <span class="pl-k">return</span> phoneNumbersUnmodifiableWrapper;
     }
-    
-    public List<String> getPhoneNumbers2() {
-        return new ArrayList<String>(phoneNumbers);
+
+    <span class="pl-k">public</span> <span class="pl-k">List&lt;<span class="pl-smi">String</span>&gt;</span> <span class="pl-en">getPhoneNumbers2</span>() {
+        <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-k">ArrayList&lt;<span class="pl-smi">String</span>&gt;</span>(phoneNumbers);
     }
-    
-    public void addPhoneNumber(String phoneNumber) {
-        phoneNumbers.add(phoneNumber);
+
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">addPhoneNumber</span>(<span class="pl-smi">String</span> <span class="pl-v">phoneNumber</span>) {
+        phoneNumbers<span class="pl-k">.</span>add(phoneNumber);
     }
-    
-}
-{% endhighlight %}
+
+}</pre></div>
 
 <p>This project offers a simpler solution to the representation exposure problem. It provides a small library of <strong>purely functional</strong> data structures: a purely functional list data structure called PList, and a purely functional map data structure called PMap. Using purely functional data structures, which are inherently immutable, eliminates the representation exposure problem without wrapping or copying.</p>
 
 <p>We can simplify the example using the purely functional PMap and PList data structures as follows. Note that no copying or wrapping is necessary, either for incoming or for outgoing collections. Since PMap and PList are classes that have no public or protected constructors, there can be no instances of these types that accidentally or maliciously exhibit mutable or otherwise incorrect behavior.</p>
 
-{% highlight java %}
-import purecollections.PMap;
-import purecollections.PList;
+<div class="highlight highlight-source-java"><pre><span class="pl-k">import</span> <span class="pl-smi">purecollections.PMap</span>;
+<span class="pl-k">import</span> <span class="pl-smi">purecollections.PList</span>;
 
-class Person {
-    
-    private PMap<String, Person> children;
-    private PList<String> phoneNumbers;
-    
-    public Person(PMap<String, Person> children, PList<String> phoneNumbers) {
-    	this.children = children;
-    	this.phoneNumbers = phoneNumbers;
-    }
-    
-    public Person() {
-    	this(PMap.<String, Person>empty(), PList.<String>empty());
-    }
-    
-    public PMap<String, Person> getChildren() {
-        return children;
-    }
-    
-    public Person addChild(String name) {
-        Person child = new Person();
-        children = children.plus(name, child);
-        return child;
-    }
-    
-    public PList<String> getPhoneNumbers() {
-        return phoneNumbers;
-    }
-    
-    public void addPhoneNumber(String phoneNumber) {
-        phoneNumbers = phoneNumbers.plus(phoneNumber);
-    }
-    
-}
-{% endhighlight %}
+<span class="pl-k">class</span> <span class="pl-en">Person</span> {
 
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/btj/purecollections">purecollections</a> is maintained by <a href="https://github.com/btj">btj</a>.</span>
+    <span class="pl-k">private</span> <span class="pl-k">PMap&lt;<span class="pl-smi">String</span>, <span class="pl-smi">Person</span>&gt;</span> children;
+    <span class="pl-k">private</span> <span class="pl-k">PList&lt;<span class="pl-smi">String</span>&gt;</span> phoneNumbers;
 
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+    <span class="pl-k">public</span> <span class="pl-en">Person</span>(<span class="pl-k">PMap&lt;<span class="pl-smi">String</span>, <span class="pl-smi">Person</span>&gt;</span> <span class="pl-v">children</span>, <span class="pl-k">PList&lt;<span class="pl-smi">String</span>&gt;</span> <span class="pl-v">phoneNumbers</span>) {
+        <span class="pl-v">this</span><span class="pl-k">.</span>children <span class="pl-k">=</span> children;
+        <span class="pl-v">this</span><span class="pl-k">.</span>phoneNumbers <span class="pl-k">=</span> phoneNumbers;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-en">Person</span>() {
+        <span class="pl-v">this</span>(<span class="pl-smi">PMap</span><span class="pl-k">.</span><span class="pl-k">&lt;</span><span class="pl-smi">String</span>, <span class="pl-smi">Person</span><span class="pl-k">&gt;</span>empty(), <span class="pl-smi">PList</span><span class="pl-k">.</span><span class="pl-k">&lt;</span><span class="pl-smi">String</span><span class="pl-k">&gt;</span>empty());
+    }
+
+    <span class="pl-k">public</span> <span class="pl-k">PMap&lt;<span class="pl-smi">String</span>, <span class="pl-smi">Person</span>&gt;</span> <span class="pl-en">getChildren</span>() {
+        <span class="pl-k">return</span> children;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-smi">Person</span> <span class="pl-en">addChild</span>(<span class="pl-smi">String</span> <span class="pl-v">name</span>) {
+        <span class="pl-smi">Person</span> child <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Person</span>();
+        children <span class="pl-k">=</span> children<span class="pl-k">.</span>plus(name, child);
+        <span class="pl-k">return</span> child;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-k">PList&lt;<span class="pl-smi">String</span>&gt;</span> <span class="pl-en">getPhoneNumbers</span>() {
+        <span class="pl-k">return</span> phoneNumbers;
+    }
+
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">addPhoneNumber</span>(<span class="pl-smi">String</span> <span class="pl-v">phoneNumber</span>) {
+        phoneNumbers <span class="pl-k">=</span> phoneNumbers<span class="pl-k">.</span>plus(phoneNumber);
+    }
+
+}</pre></div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/btj">btj</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
-
-    </section>
-
-  
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
   </body>
 </html>
