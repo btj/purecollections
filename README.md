@@ -2,7 +2,7 @@ Java's standard collection classes in the java.util package are mutable. As a re
 
 For example, consider a Person class that maintains a map of children and a list of telephone numbers. We show two variants of each getter: one which returns an unmodifiable wrapper, and one which creates a copy. Note that the public constructor that accepts initial values for the children and the phone numbers needs to defensively create a copy of the incoming collections.
 
-```
+```java
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -65,7 +65,7 @@ This project offers a simpler solution to the representation exposure problem. I
 
 We can simplify the example using the purely functional PMap and PList data structures as follows. Note that no copying or wrapping is necessary, either for incoming or for outgoing collections. Since PMap and PList are classes that have no public or protected constructors, there can be no instances of these types that accidentally or maliciously exhibit mutable or otherwise incorrect behavior.
 
-```
+```java
 import purecollections.PMap;
 import purecollections.PList;
 
