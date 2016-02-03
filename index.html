@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
@@ -23,7 +25,8 @@
 
 <p>For example, consider a Person class that maintains a map of children and a list of telephone numbers. We show two variants of each getter: one which returns an unmodifiable wrapper, and one which creates a copy. Note that the public constructor that accepts initial values for the children and the phone numbers needs to defensively create a copy of the incoming collections.</p>
 
-<pre><code>import java.util.ArrayList;
+{% highlight java %}
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -79,7 +82,7 @@ class Person {
     }
 
 }
-</code></pre>
+{% endhighlight %}
 
 <p>This project offers a simpler solution to the representation exposure problem. It provides a small library of <strong>purely functional</strong> data structures: a purely functional list data structure called PList, and a purely functional map data structure called PMap. Using purely functional data structures, which are inherently immutable, eliminates the representation exposure problem without wrapping or copying.</p>
 
