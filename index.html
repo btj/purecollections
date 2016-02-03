@@ -35,54 +35,54 @@ import java.util.List;
 import java.util.Map;
 
 class Person {
-
-    private final Map&lt;String, Person&gt; children;
-    private final Map&lt;String, Person&gt; childrenUnmodifiableWrapper;
-    private final List&lt;String&gt; phoneNumbers;
-    private final List&lt;String&gt; phoneNumbersUnmodifiableWrapper;
-
-    private Person(Map&lt;String, Person&gt; children, List&lt;String&gt; phoneNumbers, boolean dummy) {
-        this.children = children;
-        this.childrenUnmodifiableWrapper = Collections.unmodifiableMap(this.children);
-        this.phoneNumbers = phoneNumbers;
-        this.phoneNumbersUnmodifiableWrapper = Collections.unmodifiableList(this.phoneNumbers);
+    
+    private final Map<String, Person> children;
+    private final Map<String, Person> childrenUnmodifiableWrapper;
+    private final List<String> phoneNumbers;
+    private final List<String> phoneNumbersUnmodifiableWrapper;
+    
+    private Person(Map<String, Person> children, List<String> phoneNumbers, boolean dummy) {
+    	this.children = children;
+    	this.childrenUnmodifiableWrapper = Collections.unmodifiableMap(this.children);
+    	this.phoneNumbers = phoneNumbers;
+    	this.phoneNumbersUnmodifiableWrapper = Collections.unmodifiableList(this.phoneNumbers);
     }
-
-    public Person(Map&lt;String, Person&gt; children, List&lt;String&gt; phoneNumbers) {
-        // Create defensive copies
-        this(new HashMap&lt;String, Person&gt;(children), new ArrayList&lt;String&gt;(phoneNumbers), false);
+    
+    public Person(Map<String, Person> children, List<String> phoneNumbers) {
+    	// Create defensive copies
+    	this(new HashMap<String, Person>(children), new ArrayList<String>(phoneNumbers), false);
     }
-
+    
     public Person() {
-        this(new HashMap&lt;String, Person&gt;(), new ArrayList&lt;String&gt;(), false);
+    	this(new HashMap<String, Person>(), new ArrayList<String>(), false);
     }
-
-    public Map&lt;String, Person&gt; getChildren1() {
+        
+    public Map<String, Person> getChildren1() {
         return childrenUnmodifiableWrapper;
     }
-
-    public Map&lt;String, Person&gt; getChildren2() {
-        return new HashMap&lt;String, Person&gt;(children);
+    
+    public Map<String, Person> getChildren2() {
+        return new HashMap<String, Person>(children);
     }
-
+    
     public Person addChild(String name) {
         Person child = new Person();
         children.put(name, child);
         return child;
     }
-
-    public List&lt;String&gt; getPhoneNumbers1() {
+    
+    public List<String> getPhoneNumbers1() {
         return phoneNumbersUnmodifiableWrapper;
     }
-
-    public List&lt;String&gt; getPhoneNumbers2() {
-        return new ArrayList&lt;String&gt;(phoneNumbers);
+    
+    public List<String> getPhoneNumbers2() {
+        return new ArrayList<String>(phoneNumbers);
     }
-
+    
     public void addPhoneNumber(String phoneNumber) {
         phoneNumbers.add(phoneNumber);
     }
-
+    
 }
 {% endhighlight %}
 
@@ -90,43 +90,44 @@ class Person {
 
 <p>We can simplify the example using the purely functional PMap and PList data structures as follows. Note that no copying or wrapping is necessary, either for incoming or for outgoing collections. Since PMap and PList are classes that have no public or protected constructors, there can be no instances of these types that accidentally or maliciously exhibit mutable or otherwise incorrect behavior.</p>
 
-<pre><code>import purecollections.PMap;
+{% highlight java %}
+import purecollections.PMap;
 import purecollections.PList;
 
 class Person {
-
-    private PMap&lt;String, Person&gt; children;
-    private PList&lt;String&gt; phoneNumbers;
-
-    public Person(PMap&lt;String, Person&gt; children, PList&lt;String&gt; phoneNumbers) {
-        this.children = children;
-        this.phoneNumbers = phoneNumbers;
+    
+    private PMap<String, Person> children;
+    private PList<String> phoneNumbers;
+    
+    public Person(PMap<String, Person> children, PList<String> phoneNumbers) {
+    	this.children = children;
+    	this.phoneNumbers = phoneNumbers;
     }
-
+    
     public Person() {
-        this(PMap.&lt;String, Person&gt;empty(), PList.&lt;String&gt;empty());
+    	this(PMap.<String, Person>empty(), PList.<String>empty());
     }
-
-    public PMap&lt;String, Person&gt; getChildren() {
+    
+    public PMap<String, Person> getChildren() {
         return children;
     }
-
+    
     public Person addChild(String name) {
         Person child = new Person();
         children = children.plus(name, child);
         return child;
     }
-
-    public PList&lt;String&gt; getPhoneNumbers() {
+    
+    public PList<String> getPhoneNumbers() {
         return phoneNumbers;
     }
-
+    
     public void addPhoneNumber(String phoneNumber) {
         phoneNumbers = phoneNumbers.plus(phoneNumber);
     }
-
+    
 }
-</code></pre>
+{% endhighlight %}
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/btj/purecollections">purecollections</a> is maintained by <a href="https://github.com/btj">btj</a>.</span>
